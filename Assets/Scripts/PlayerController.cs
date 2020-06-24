@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] private Vector3 velocity;              // 移動方向
-    [SerializeField] private float moveSpeed = 0.0f;        // 移動速度(キー入力をしないときは移動速度0)
+    [SerializeField] public  float moveSpeed = 0.0f;        // 移動速度(キー入力をしないときは移動速度0)
     [SerializeField] private float crouchSpeed = 1.0f;      // しゃがみ速度
     [SerializeField] private float walkSpeed = 3.0f;        // 歩き速度
     [SerializeField] private float runSpeed = 7.0f;         // 走り速度

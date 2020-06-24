@@ -10,8 +10,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] float dmgDelay = 0.2f;//ダメージを受けた時にモーションに遷移するまでの待機時間
     Animator anim;
-    Enemy enemy;
-    HPBar hpbar;
 
     // Start is called before the first frame update
     void Start()
@@ -20,26 +18,14 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public float ReturnHp()
-    {
-        return hp;
-    }
-    public float ReturnAtk()
-    {
-        return atk;
-    }
-    public float ReturnDef()
-    {
-        return def;
-    }
-
     //物体がすり抜けた時に呼び出し
     void OnTriggerEnter(Collider other)
     {
         //DamageStartを開始するまでdmgDelay分遅延させる
         Invoke("DamageStart", dmgDelay);
-        hp -= hpbar.DamageCalc(enemy.ReturnAtk(), def);
+        //hpbar.DamageCalc(enemy.ReturnAtk(), def);
     }
+
     //DamageAnimationの開始
     void DamageStart()
     {

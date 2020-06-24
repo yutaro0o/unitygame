@@ -4,24 +4,59 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
+    public GameObject Player;
+    Animator anim;
+    private Rigidbody PlayerRigid;
+    public float Upspeed;
+    bool IsJump = false;
+
+    PlayerController speed = new PlayerController();
+
+    static int stateRun = Animator.StringToHash("Base Layer.Run");
+    static int stateIdle = Animator.StringToHash("Base Layer.Idle");
+    static int stateWalk = Animator.StringToHash("Base Layer.Walk");
+
+    private AnimatorStateInfo currentBaseState;
     // Start is called before the first frame update
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
+        PlayerRigid = Player.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Animator anim = GetComponent<Animator>();
+        currentBaseState = anim.GetCurrentAnimatorStateInfo(0);
 
-        if(Input.GetKey(KeyCode.Space))
+        if (currentBaseState.fullPathHash == stateIdle || currentBaseState.fullPathHash == stateWalk || currentBaseState.fullPathHash == stateRun)
         {
-            anim.SetBool("Jump", true);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (speed.moveSpeed > 5.0)
+                {
+                    anim.SetBool("Jump", true);
+                    Invoke("RunningJum", 0.3f);
+                }
+                else
+                {
+                    anim.SetBool("Jump", true);
+                    SmallJump();
+                }
+            }
         }
         else
         {
             anim.SetBool("Jump", false);
         }
+    }
+
+    void RunningJump()
+    {
+        PlayerRigid.AddForce(transform.up * Upspeed * 2);
+    }
+    void SmallJump()
+    {
+        PlayerRigid.AddForce(transform.up * Upspeed);
     }
 }
