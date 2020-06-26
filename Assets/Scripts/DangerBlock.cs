@@ -5,7 +5,6 @@ using UnityEngine;
 public class DangerBlock : MonoBehaviour
 {
     [SerializeField] float contactdamage = 1.0f;
-
     // Use this for initialization
     void Start()
     {
@@ -21,7 +20,7 @@ public class DangerBlock : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //hpbar.DamagePenetration(contactdamage);
+            //.DamagePenetration(contactdamage);
         }
     }
     void OnTriggerEnter(Collider other)

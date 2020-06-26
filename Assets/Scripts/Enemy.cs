@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     void DamageStart()
     {
         anim.SetBool("Damage", true);
+        Destroy(this.gameObject, 1.9f);
     }
     //DamageAnimationの終了
     void DamageEnd()

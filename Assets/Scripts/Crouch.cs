@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class Crouch : MonoBehaviour
 {
-    Animator anim;
+    public Animator anim;
     //Cボタンで立ちしゃがみを切り替える
     public static bool Crouchflg = false;
 
+    static int stateCrouch = Animator.StringToHash("Base Layer.Crouch");
+    static int stateCrouchWalk = Animator.StringToHash("Base Layer.Crouch Walk");
     static int stateRun = Animator.StringToHash("Base Layer.Run");
     private AnimatorStateInfo currentBaseState;
     // Start is called before the first frame update
@@ -27,6 +29,16 @@ public class Crouch : MonoBehaviour
             anim.SetBool("Crouch", false);
             Crouchflg = false;
         }
+
+        if (currentBaseState.fullPathHash != stateCrouch && currentBaseState.fullPathHash != stateCrouchWalk)
+        {
+            GetComponent<CapsuleCollider>().enabled = true;
+        }
+        else
+        {
+            GetComponent<CapsuleCollider>().enabled = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.C))
         {
             if(!Crouchflg)

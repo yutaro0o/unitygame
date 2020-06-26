@@ -26,6 +26,14 @@ public class Player : MonoBehaviour
         //hpbar.DamageCalc(enemy.ReturnAtk(), def);
     }
 
+    public void Win()
+    {
+        anim.SetBool("Win", true);
+    }
+    public void Lose()
+    {
+        anim.SetBool("Lose", true);
+    }
     //DamageAnimationの開始
     void DamageStart()
     {

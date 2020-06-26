@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Sword
+  - DangerBlock
+  - Enemy
+  - End
+  - Shield
   layers:
   - Default
   - TransparentFX

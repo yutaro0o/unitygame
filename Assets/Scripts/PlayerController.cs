@@ -13,6 +13,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float applySpeed = 0.2f;       // 振り向きの適用速度
     [SerializeField] private CameraController refCamera;    // カメラの水平回転を参照する用
 
+    private bool moveflg = false;//移動できるか判定するフラグ
+
+    static int stateIdle = Animator.StringToHash("Base Layer.Idle");
+    static int stateWalk = Animator.StringToHash("Base Layer.Walk");
+    static int stateJump = Animator.StringToHash("Base Layer.Jump");
+    static int stateRunningJump = Animator.StringToHash("Base Layer.RunningJump");
+    static int stateSlide = Animator.StringToHash("Base Layer.Slide");
+    static int stateCrouch = Animator.StringToHash("Base Layer.Crouch");
+    static int stateCrouchWalk = Animator.StringToHash("Base Layer.Crouch Walk");
+    static int stateRun = Animator.StringToHash("Base Layer.Run");
+    private AnimatorStateInfo currentBaseState;
+
     void Update()
     {
 
@@ -30,8 +42,24 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             velocity.x += 1;
 
+        currentBaseState = anim.GetCurrentAnimatorStateInfo(0);
+        if (currentBaseState.fullPathHash == stateIdle ||
+            currentBaseState.fullPathHash == stateWalk ||
+            currentBaseState.fullPathHash == stateJump ||
+            currentBaseState.fullPathHash == stateRunningJump ||
+            currentBaseState.fullPathHash == stateSlide ||
+            currentBaseState.fullPathHash == stateCrouch ||
+            currentBaseState.fullPathHash == stateCrouchWalk ||
+            currentBaseState.fullPathHash == stateRun)
+        {
+            moveflg = true;
+        }
+        else
+        {
+            moveflg = false;
+        }
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))//方向キーを押しているとき(歩き)
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && moveflg == true)//方向キーを押しているとき(歩き)
         {
             if (crouch.CrouchJudge() == true && !Input.GetKey(KeyCode.LeftShift))//しゃがんでいてシフト（走りボタンが押されていないとき）
             {
