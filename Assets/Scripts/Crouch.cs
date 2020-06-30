@@ -12,6 +12,7 @@ public class Crouch : MonoBehaviour
     static int stateCrouch = Animator.StringToHash("Base Layer.Crouch");
     static int stateCrouchWalk = Animator.StringToHash("Base Layer.Crouch Walk");
     static int stateRun = Animator.StringToHash("Base Layer.Run");
+    static int stateSlide = Animator.StringToHash("Base Layer.Slide");
     private AnimatorStateInfo currentBaseState;
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,7 @@ public class Crouch : MonoBehaviour
             Crouchflg = false;
         }
 
-        if (currentBaseState.fullPathHash != stateCrouch && currentBaseState.fullPathHash != stateCrouchWalk)
+        if (currentBaseState.fullPathHash != stateCrouch && currentBaseState.fullPathHash != stateCrouchWalk && currentBaseState.fullPathHash != stateSlide)
         {
             GetComponent<CapsuleCollider>().enabled = true;
         }

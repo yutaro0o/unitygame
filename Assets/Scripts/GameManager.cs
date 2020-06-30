@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     private Text textResultTotal;
     private Text textHighScore;
     public GameObject nextSceneButton;
-    int currentscene = 1;
+    public static int i = 2;
+    int lastscene = 4;
 
     PlayerHPBar playerhp;
     Player player;
@@ -98,11 +99,11 @@ public class GameManager : MonoBehaviour
                 inGame = false;
             }
 
-            GameObject playerObj = GameObject.Find("Player");
+            GameObject playerObj = GameObject.Find("Player Variant");
             GameObject[] swords = GameObject.FindGameObjectsWithTag("Sword");
             GameObject[] shields = GameObject.FindGameObjectsWithTag("Shield");
 
-            if (playerhp.ReturnCurrentHP() == 0)
+            if (playerhp.ReturnCurrentHP() < 0)
             {
                 foreach(GameObject sword in swords)
                 {
@@ -149,7 +150,10 @@ public class GameManager : MonoBehaviour
                 player.Win();
                 //audioSource.PlayOneShot(clearSound);
                 textClear.enabled = true;
-                nextSceneButton.SetActive(true);
+                if (i != lastscene)
+                {
+                    nextSceneButton.SetActive(true);
+                }
 
                 int scorePoint = score * 50;
                 float scoreHP = (float)playerhp.currentHP / (float)playerhp.maxHP * 1000;
@@ -184,6 +188,7 @@ public class GameManager : MonoBehaviour
 
     public void NextScene()
     {
-        SceneManager.LoadScene(++currentscene);
+        i++;
+        SceneManager.LoadScene(i);
     }
 }
