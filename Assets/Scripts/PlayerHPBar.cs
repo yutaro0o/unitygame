@@ -10,6 +10,8 @@ public class PlayerHPBar : MonoBehaviour
     public int currentHP;
     //Sliderを入れる
     public Slider slider;
+    Player player;
+    Enemy enemy;
 
     void Start()
     {
@@ -33,13 +35,18 @@ public class PlayerHPBar : MonoBehaviour
             //ダメージは1～100の中でランダムに決める。
             int damage = 1;//Random.Range(1, 100);
 
-            //現在のHPからダメージを引く
-            currentHP -= damage;
+            Damaged(damage);
         }
     }
 
     public int ReturnCurrentHP()
     {
+        return currentHP;
+    }
+
+    public int Damaged(int damage)
+    {
+        currentHP -= damage;
         return currentHP;
     }
 }

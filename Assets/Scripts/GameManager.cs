@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
     public Text textGameOver;
 
-    private int hp;
     private int score;
     private float leftTime;
     //private Text textScore;
@@ -99,11 +98,11 @@ public class GameManager : MonoBehaviour
                 inGame = false;
             }
 
-            GameObject playerObj = GameObject.Find("Player Variant");
+            GameObject playerObj = GameObject.Find("Player");
             GameObject[] swords = GameObject.FindGameObjectsWithTag("Sword");
             GameObject[] shields = GameObject.FindGameObjectsWithTag("Shield");
 
-            if (playerhp.ReturnCurrentHP() < 0)
+            if (playerhp.ReturnCurrentHP() <= 0)
             {
                 foreach(GameObject sword in swords)
                 {
@@ -126,7 +125,6 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    playerhp.currentHP = 0;
                     //audioSource.PlayOneShot(overSound);
                     textGameOver.enabled = true;
                     inGame = false;
@@ -159,8 +157,8 @@ public class GameManager : MonoBehaviour
                 float scoreHP = (float)playerhp.currentHP / (float)playerhp.maxHP * 1000;
                 int scoreTime = (int)(leftTime * 100f);
                 //textResultScore.text = "Score * 50 = " + scorePoint.ToString();
-                textResultHP.text = "HP * 1000 = " + scoreHP.ToString();
-                textResultTime.text = "Time * 100 = " + scoreTime.ToString();
+                textResultHP.text = "HP × 1000 = " + scoreHP.ToString();
+                textResultTime.text = "Time × 100 = " + scoreTime.ToString();
 
                 int totalScore = scorePoint + (int)scoreHP + scoreTime;
                 textResultTotal.text = "Total Score:" + totalScore.ToString();

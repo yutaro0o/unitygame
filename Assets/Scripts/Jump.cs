@@ -31,15 +31,17 @@ public class Jump : MonoBehaviour
 
         if (currentBaseState.fullPathHash == stateIdle || currentBaseState.fullPathHash == stateWalk || currentBaseState.fullPathHash == stateRun)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && IsJump == false)
             {
                 if (speed.moveSpeed > 5.0)
                 {
+                    IsJump = true;
                     anim.SetBool("Jump", true);
-                    Invoke("RunningJum", 0.3f);
+                    Invoke("RunningJump", 0.3f);
                 }
                 else
                 {
+                    IsJump = true;
                     anim.SetBool("Jump", true);
                     SmallJump();
                 }
@@ -48,6 +50,7 @@ public class Jump : MonoBehaviour
         else
         {
             anim.SetBool("Jump", false);
+            IsJump = false;
         }
     }
 
